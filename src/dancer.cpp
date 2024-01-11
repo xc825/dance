@@ -12,6 +12,7 @@ class Dancer {
     };
     std::set<int, id_less> possible_partners_ids;
     int id;
+    int partners_num;
     std::string gender;
     int attractiveness, acceptable_min, acceptable_max;
 
@@ -27,24 +28,21 @@ class Dancer {
     friend class Dance;
 };
 
-
-
 Dancer::Dancer (int attractiveness, int acceptable_min, int acceptable_max) {
-    log_print(TRACE, "Dancer() constructor");
     this->attractiveness = attractiveness;
     this->acceptable_min = acceptable_min;
     this->acceptable_max = acceptable_max;
 };
 
 Dancer::Dancer () {
-    log_print(TRACE, "Dancer() constructor");
-    this->attractiveness = 0;
-    this->acceptable_min = 0;
-    this->acceptable_max = 0;
+    PRINT_LOG(TRACE, "");
+    partners_num = 0;
+    attractiveness = 0;
+    acceptable_min = 0;
+    acceptable_max = 0;
 }
 
 Dancer::~Dancer() {
-    log_print(TRACE, "~Dancer() destructor");
 }
 
 int Dancer::get_attractiveness() const {
@@ -74,28 +72,19 @@ std::string Dancer::to_string() const{
 }
 
 int Dancer::add_pos_partners_id(int id) {
-    log_print(TRACE, "add_pos_partners_id: " + std::to_string(this->id) + "->" + std::to_string(id));
+    PRINT_LOG(TRACE, "add ", this->id, ".", id);
+    if (possible_partners_ids.count(id) == 0) {
+        partners_num++;
+    }
     possible_partners_ids.insert(id);
     return 0;
  }
 
 int Dancer::remove_pos_partners_id(int id) {
-    log_print(TRACE, "remove_pos_partners_id: " + std::to_string(id));
+    PRINT_LOG(TRACE, "id:", this->id, ".", id);
+    if (possible_partners_ids.count(id) > 0) {
+        partners_num--;
+    }
     possible_partners_ids.erase(id);
     return 0;
 }
-
-
-/*
-int Dancer::set_attractiveness(int attractiveness) const {
-    this->attractiveness = attractiveness;
-    return ;
-}
-
-int Dancer::set_gender(char gender) {
-    this->gender = gender;
-    return 0;
-}
-*/
-
-

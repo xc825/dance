@@ -5,17 +5,21 @@ INC_DIR := include
 SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 LDFLAGS := 
-CPPFLAGS := -g
-CPPFLAGS += -fPIE
+#CPPFLAGS := -g
+#CPPFLAGS += -fPIE
 #CPPFLAGS += -no-pie
 CPPFLAGS += -std=c++2a
 CXXFLAGS := 
 COMPILER := clang++
 #COMPILER := c++
 LOG_LVL := 5
-#WARN := -Wzero-as-null-pointer-constant
+WARN := -Wall
+#WARN += -Wzero-as-null-pointer-constant
 
 all: party
+
+#generate: generate.o
+#	$(COMPILER) $(LDFLAGS) $(CPPFLAGS) -o $(BIN_DIR)/$@ $^
 
 party: $(OBJ_FILES)
 	$(COMPILER) $(LDFLAGS) $(CPPFLAGS) -o $(BIN_DIR)/$@ $^

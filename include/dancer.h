@@ -11,6 +11,7 @@ public:
     };
     std::set<int, id_less> possible_partners_ids;
     int id;
+    int partners_num;
     std::string gender;
     int attractiveness, acceptable_min, acceptable_max;
 
